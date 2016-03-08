@@ -1,7 +1,11 @@
 //Must use a local version of waterrower as the npm package has needs updated.
 var waterrower = require("./node_modules/node-waterrower/Waterrower/index.js");
 var firebase = require("firebase");
-var myFirebaseRef = new firebase("https://boiling-torch-2948.firebaseio.com/");
+
+var firebaseRoot = "https://waterrowerlog.firebaseio.com/";
+var userName = 'RLS';
+
+var firebaseUserRef = new firebase(firebaseRoot + '/' + userName + '/');
 
 var readWaterrower = function() {
   console.log();
@@ -11,9 +15,9 @@ var readWaterrower = function() {
   console.log("Distance... ....." + waterrower.readDistance());     // [ m ]
   console.log("Heart Rate ......" + waterrower.readHeartRate());    // [ bpm ]
 
+  var timeStamp = new Date().toLocaleString();
   var logEntry = {
-    userName: 'RLS',
-    created: new Date().toLocaleString(),
+    created: timeStamp,
     strokeRate: waterrower.readStrokeCount(),
     total: waterrower.readTotalSpeed(),
     average: waterrower.readAverageSpeed(),
@@ -21,8 +25,7 @@ var readWaterrower = function() {
     heartRate: waterrower.readHeartRate()
   };
 
-  myFirebaseRef.set(logEntry);
-  myFirebaseRef.push(logEntry);
+  firebaseUserRef.push(logEntry);
 };
 
 setInterval(function() {
