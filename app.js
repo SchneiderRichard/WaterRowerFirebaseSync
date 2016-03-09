@@ -7,14 +7,16 @@ var userName = 'RLS';
 
 var firebaseUserRef = new firebase(firebaseRoot + '/' + userName + '/');
 
-var readWaterrower = function() {
+function logToConsole(logEntry) {
   console.log();
-  console.log("Stroke Rate ....." + waterrower.readStrokeCount());  // [ - ]
-  console.log("Total  ....." + waterrower.readTotalSpeed());   // [cm/s]
-  console.log("Average  ..." + waterrower.readAverageSpeed()); // [cm/s]
-  console.log("Distance... ....." + waterrower.readDistance());     // [ m ]
-  console.log("Heart Rate ......" + waterrower.readHeartRate());    // [ bpm ]
+  console.log("Stroke Rate ....." + logEntry.strokeRate); // [ - ]
+  console.log("Total  ....." + logEntry.total);   // [cm/s]
+  console.log("Average  ..." + logEntry.average); // [cm/s]
+  console.log("Distance... ....." + logEntry.distance);     // [ m ]
+  console.log("Heart Rate ......" + logEntry.heartRate);    // [ bpm ]
+}
 
+var readWaterrower = function() {
   var timeStamp = new Date().toLocaleString();
   var logEntry = {
     created: timeStamp,
@@ -25,9 +27,11 @@ var readWaterrower = function() {
     heartRate: waterrower.readHeartRate()
   };
 
-  firebaseUserRef.push(logEntry);
+  if (logEntry.total > 0) firebaseUserRef.push(logEntry);
+  logToConsole(logEntry);
 };
 
 setInterval(function() {
   readWaterrower();
-}, 5000);
+}, 10000);
+
