@@ -1,11 +1,12 @@
-//Must use a local version of waterrower as the npm package has needs updated.
-var waterrower = require("./node_modules/node-waterrower/Waterrower/index.js");
+//Must use a local version of waterrower as the npm package has needs updated. var waterrower = require("./node_modules/node-waterrower/Waterrower/index.js");
 var firebase = require("firebase");
 
-var firebaseRoot = "https://waterrowerlog.firebaseio.com/";
+var _FIREBASE_ROOT = "https://waterrowerlog.firebaseio.com/";
+var _UPDATE_FREQ_MS = 10000;
+// TODO: actual user.
 var userName = 'RLS';
 
-var firebaseUserRef = new firebase(firebaseRoot + '/' + userName + '/');
+var firebaseUserRef = new firebase(_FIREBASE_ROOT + '/' + userName + '/');
 
 function logToConsole(logEntry) {
   console.log();
@@ -33,5 +34,5 @@ var readWaterrower = function() {
 
 setInterval(function() {
   readWaterrower();
-}, 10000);
+}, _UPDATE_FREQ_MS);
 
