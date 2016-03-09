@@ -17,7 +17,7 @@ function logToConsole(logEntry) {
   console.log("Heart Rate ......" + logEntry.heartRate);    // [ bpm ]
 }
 
-var readWaterrower = function() {
+function readWaterRower() {
   var timeStamp = new Date().toLocaleString();
   var logEntry = {
     created: timeStamp,
@@ -30,9 +30,9 @@ var readWaterrower = function() {
 
   if (logEntry.total > 0) firebaseUserRef.push(logEntry);
   logToConsole(logEntry);
-};
+}
 
 setInterval(function() {
-  readWaterrower();
+  readWaterRower();
 }, _UPDATE_FREQ_MS);
 
