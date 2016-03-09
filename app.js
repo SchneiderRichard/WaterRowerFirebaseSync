@@ -19,12 +19,24 @@ function logToConsole(logEntry) {
 }
 
 function readWaterRower() {
+  var averageSpeed;
+  try {
+    // Want to try accessing the waterrower. If it isn't on or properly
+    // connected, a big error will ensue...
+    averageSpeed = waterrower.readAverageSpeed();
+  }
+  catch (ex)
+  {
+    console.log(ex.message);
+    return;
+  }
+
   var timeStamp = new Date().toLocaleString();
   var logEntry = {
     created: timeStamp,
     strokeRate: waterrower.readStrokeCount(),
     total: waterrower.readTotalSpeed(), //instant & flaky. Get rid of?
-    average: waterrower.readAverageSpeed(),
+    average: averageSpeed,
     distance: waterrower.readDistance(),
     heartRate: waterrower.readHeartRate()
   };
