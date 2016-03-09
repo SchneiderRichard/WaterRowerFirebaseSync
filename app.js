@@ -1,4 +1,5 @@
-//Must use a local version of waterrower as the npm package has needs updated. var waterrower = require("./node_modules/node-waterrower/Waterrower/index.js");
+// Current npm version of node-waterrower is broken. Use local.
+var waterrower = require("./node_modules/node-waterrower/Waterrower/index.js");
 var firebase = require("firebase");
 
 var _FIREBASE_ROOT = "https://waterrowerlog.firebaseio.com/";
@@ -22,13 +23,13 @@ function readWaterRower() {
   var logEntry = {
     created: timeStamp,
     strokeRate: waterrower.readStrokeCount(),
-    total: waterrower.readTotalSpeed(),
+    total: waterrower.readTotalSpeed(), //instant & flaky. Get rid of?
     average: waterrower.readAverageSpeed(),
     distance: waterrower.readDistance(),
     heartRate: waterrower.readHeartRate()
   };
 
-  if (logEntry.total > 0) firebaseUserRef.push(logEntry);
+  if (logEntry.distance > 0) firebaseUserRef.push(logEntry);
   logToConsole(logEntry);
 }
 
