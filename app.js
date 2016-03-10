@@ -10,7 +10,6 @@ var userName = 'RLS';
 var firebaseUserRef = new firebase(_FIREBASE_ROOT + '/' + userName + '/');
 
 function logToConsole(logEntry) {
-  console.log();
   console.log("Stroke Rate ....." + logEntry.strokeRate); // [ - ]
   console.log("Total  ....." + logEntry.total);   // [cm/s]
   console.log("Average  ..." + logEntry.average); // [cm/s]
