@@ -4,8 +4,7 @@ var firebase = require("firebase");
 
 var _FIREBASE_ROOT = "https://waterrowerlog.firebaseio.com/";
 var _UPDATE_FREQ_MS = 10000;
-// TODO: actual user.
-var userName = 'RLS';
+var userName = process.env.USER || 'Anonymous';
 
 var firebaseUserRef = new firebase(_FIREBASE_ROOT + '/' + userName + '/');
 
